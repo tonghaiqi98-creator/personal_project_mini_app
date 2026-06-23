@@ -1,0 +1,159 @@
+.page {
+  min-height: 100vh;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.store-card {
+  padding: 34rpx 32rpx;
+}
+
+.store-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24rpx;
+}
+
+.store-label {
+  color: #777777;
+  font-size: 24rpx;
+  margin-bottom: 8rpx;
+}
+
+.store-name {
+  color: #222222;
+  font-size: 44rpx;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.status-pill {
+  flex-shrink: 0;
+  padding: 10rpx 18rpx;
+  border-radius: 999rpx;
+  background: #FFF3EA;
+  color: #D77A32;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.store-meta {
+  display: flex;
+  align-items: center;
+  margin-top: 34rpx;
+  padding-top: 28rpx;
+  border-top: 1rpx solid #EEEEEE;
+}
+
+.meta-item {
+  flex: 1;
+  min-width: 0;
+}
+
+.meta-label {
+  display: block;
+  color: #777777;
+  font-size: 24rpx;
+  margin-bottom: 6rpx;
+}
+
+.meta-value {
+  display: block;
+  color: #222222;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.meta-divider {
+  width: 1rpx;
+  height: 52rpx;
+  margin: 0 28rpx;
+  background: #EEEEEE;
+}
+
+.notice-card {
+  margin-top: 24rpx;
+  padding: 28rpx 30rpx;
+}
+
+.notice-title {
+  color: #222222;
+  font-size: 28rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+
+.notice-text {
+  color: #777777;
+  font-size: 28rpx;
+}
+
+.recommend-section {
+  margin-top: 36rpx;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.dish-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 28rpx 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.dish-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dish-top {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin-bottom: 10rpx;
+}
+
+.dish-name {
+  color: #222222;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.dish-tag {
+  flex-shrink: 0;
+  padding: 5rpx 12rpx;
+  border-radius: 999rpx;
+  background: #FFF3EA;
+  color: #D77A32;
+  font-size: 22rpx;
+  line-height: 1.2;
+}
+
+.dish-desc {
+  color: #777777;
+  font-size: 25rpx;
+  line-height: 1.5;
+}
+
+.bottom-action {
+  margin-top: 36rpx;
+}
+
+.start-button {
+  width: 100%;
+}
+
+.merchant-entry {
+  margin-top: 24rpx;
+  color: #777777;
+  font-size: 24rpx;
+  text-align: center;
+}

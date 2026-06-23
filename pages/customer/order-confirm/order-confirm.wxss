@@ -1,0 +1,177 @@
+.confirm-page {
+  min-height: 100vh;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.store-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 30rpx 32rpx;
+}
+
+.store-label {
+  color: #777777;
+  font-size: 24rpx;
+  margin-bottom: 6rpx;
+}
+
+.store-table {
+  color: #222222;
+  font-size: 40rpx;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.store-name {
+  flex-shrink: 0;
+  color: #D77A32;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 36rpx 0 18rpx;
+}
+
+.items-card {
+  padding: 8rpx 28rpx;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #EEEEEE;
+}
+
+.order-item:last-child {
+  border-bottom: 0;
+}
+
+.item-image {
+  width: 108rpx;
+  height: 108rpx;
+  flex-shrink: 0;
+  border-radius: 18rpx;
+  background: #EEEEEE;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  color: #222222;
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.item-meta {
+  margin-top: 8rpx;
+  color: #777777;
+  font-size: 24rpx;
+}
+
+.item-spec {
+  margin-top: 6rpx;
+  color: #999999;
+  font-size: 22rpx;
+}
+
+.item-subtotal {
+  flex-shrink: 0;
+  color: #222222;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.empty-card {
+  padding: 40rpx 32rpx;
+  text-align: center;
+}
+
+.empty-title {
+  color: #222222;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.empty-desc {
+  margin-top: 10rpx;
+  color: #777777;
+  font-size: 26rpx;
+}
+
+.back-button {
+  margin-top: 28rpx;
+}
+
+.remark-card,
+.summary-card {
+  margin-top: 24rpx;
+  padding: 28rpx 30rpx;
+}
+
+.remark-title {
+  color: #222222;
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-bottom: 18rpx;
+}
+
+.remark-input {
+  width: 100%;
+  height: 132rpx;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  background: #F7F7F7;
+  color: #222222;
+  font-size: 26rpx;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.remark-placeholder {
+  color: #AAAAAA;
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #777777;
+  font-size: 28rpx;
+  margin-bottom: 18rpx;
+}
+
+.summary-row:last-child {
+  margin-bottom: 0;
+}
+
+.total-row {
+  color: #222222;
+  font-weight: 700;
+}
+
+.bottom-action {
+  margin-top: 36rpx;
+}
+
+.pay-button {
+  width: 100%;
+}
+
+.pay-button.disabled {
+  background: #DDDDDD;
+  color: #999999;
+  box-shadow: none;
+}

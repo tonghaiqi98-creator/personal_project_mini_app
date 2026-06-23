@@ -1,0 +1,21 @@
+.placeholder-page {
+  min-height: 100vh;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.placeholder-card {
+  padding: 36rpx 32rpx;
+}
+
+.placeholder-title {
+  color: #222222;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.placeholder-desc {
+  margin-top: 12rpx;
+  color: #777777;
+  font-size: 26rpx;
+}

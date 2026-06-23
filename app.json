@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/customer/home/home",
+    "pages/customer/menu/menu",
+    "pages/customer/cart/cart",
+    "pages/customer/order-confirm/order-confirm",
+    "pages/customer/order-detail/order-detail",
+    "pages/merchant/home/home",
+    "pages/merchant/orders/orders",
+    "pages/merchant/dishes/dishes",
+    "pages/merchant/stats/stats"
+  ],
+  "window": {
+    "navigationBarTitleText": "扫码点餐"
+  }
+}

@@ -1,0 +1,6 @@
+<view class="placeholder-page">
+  <view class="app-card placeholder-card">
+    <view class="placeholder-title">商家首页</view>
+    <view class="placeholder-desc">页面结构已预留，后续再开发商家端功能。</view>
+  </view>
+</view>

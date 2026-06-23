@@ -1,0 +1,64 @@
+<view class="page app-safe-bottom">
+  <view class="store-card app-card">
+    <view class="store-main">
+      <view>
+        <view class="store-label">当前门店</view>
+        <view class="store-name">{{store.name}}</view>
+      </view>
+      <view class="status-pill">{{store.status}}</view>
+    </view>
+
+    <view class="store-meta">
+      <view class="meta-item">
+        <text class="meta-label">桌号</text>
+        <text class="meta-value">{{store.tableNo}}</text>
+      </view>
+      <view class="meta-divider"></view>
+      <view class="meta-item">
+        <text class="meta-label">营业时间</text>
+        <text class="meta-value">{{store.businessHours}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="notice-card app-card">
+    <view class="notice-title">门店公告</view>
+    <view class="notice-text">{{notice}}</view>
+  </view>
+
+  <view class="recommend-section">
+    <view class="section-head">
+      <view>
+        <view class="app-section-title">今日推荐</view>
+        <view class="app-section-subtitle">先用静态 Demo 数据展示首页风格</view>
+      </view>
+    </view>
+
+    <view
+      class="dish-card app-card"
+      wx:for="{{recommendations}}"
+      wx:key="id"
+    >
+      <view class="dish-info">
+        <view class="dish-top">
+          <view class="dish-name">{{item.name}}</view>
+          <view class="dish-tag">{{item.tag}}</view>
+        </view>
+        <view class="dish-desc">{{item.description}}</view>
+      </view>
+      <view class="app-price">¥{{item.price}}</view>
+    </view>
+  </view>
+
+  <view class="bottom-action">
+    <button
+      class="app-btn-primary start-button"
+      hover-class="button-hover"
+      bindtap="handleStartOrder"
+    >
+      开始点餐
+    </button>
+
+    <view class="merchant-entry" bindtap="handleMerchantEntry">商家入口</view>
+  </view>
+</view>

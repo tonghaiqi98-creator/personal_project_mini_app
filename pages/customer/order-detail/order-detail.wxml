@@ -1,0 +1,87 @@
+<view class="detail-page app-safe-bottom">
+  <block wx:if="{{hasOrder}}">
+    <view class="status-card app-card">
+      <view class="status-pill">模拟支付成功</view>
+      <view class="status-title">{{statusText}}</view>
+      <view class="status-desc">订单已提交，请等待店员确认并送餐。</view>
+    </view>
+
+    <view class="info-card app-card">
+      <view class="info-row">
+        <text class="info-label">订单号</text>
+        <text class="info-value">{{order.orderNo}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">门店</text>
+        <text class="info-value">{{order.store.name}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">桌号</text>
+        <text class="info-value">{{order.store.tableNo}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">支付时间</text>
+        <text class="info-value">{{paidTimeText}}</text>
+      </view>
+    </view>
+
+    <view class="section-title-row">
+      <view class="app-section-title">商品明细</view>
+      <view class="app-section-subtitle">共 {{order.cartCount}} 件</view>
+    </view>
+
+    <view class="items-card app-card">
+      <view
+        wx:for="{{order.items}}"
+        wx:key="id"
+        class="order-item"
+      >
+        <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="item-info">
+          <view class="item-name">{{item.name}}</view>
+          <view wx:if="{{item.specText}}" class="item-spec">{{item.specText}}</view>
+          <view class="item-meta">¥{{item.price}} x {{item.quantity}}</view>
+        </view>
+        <view class="item-subtotal">¥{{item.subtotal}}</view>
+      </view>
+    </view>
+
+    <view class="remark-card app-card">
+      <view class="remark-label">订单备注</view>
+      <view class="remark-text">{{order.remark || '无备注'}}</view>
+    </view>
+
+    <view class="summary-card app-card">
+      <view class="summary-row">
+        <text>商品数量</text>
+        <text>{{order.cartCount}} 件</text>
+      </view>
+      <view class="summary-row total-row">
+        <text>实付金额</text>
+        <text class="app-price">¥{{order.cartTotal}}</text>
+      </view>
+    </view>
+
+    <view class="bottom-action">
+      <button
+        class="app-btn-secondary action-button"
+        hover-class="button-hover"
+        bindtap="handleBackHome"
+      >
+        返回首页
+      </button>
+    </view>
+  </block>
+
+  <view wx:else class="empty-card app-card">
+    <view class="empty-title">暂无订单</view>
+    <view class="empty-desc">请先返回菜单选择商品并完成模拟支付。</view>
+    <button
+      class="app-btn-primary empty-button"
+      hover-class="button-hover"
+      bindtap="handleBackToMenu"
+    >
+      去点餐
+    </button>
+  </view>
+</view>

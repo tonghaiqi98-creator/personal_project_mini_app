@@ -1,0 +1,75 @@
+<view class="confirm-page app-safe-bottom">
+  <view class="store-card app-card">
+    <view>
+      <view class="store-label">堂食桌号</view>
+      <view class="store-table">{{store.tableNo}}</view>
+    </view>
+    <view class="store-name">{{store.name}}</view>
+  </view>
+
+  <view class="section-title-row">
+    <view class="app-section-title">订单明细</view>
+    <view class="app-section-subtitle">共 {{cartCount}} 件</view>
+  </view>
+
+  <view wx:if="{{hasItems}}" class="items-card app-card">
+    <view
+      wx:for="{{items}}"
+      wx:key="id"
+      class="order-item"
+    >
+      <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="item-info">
+        <view class="item-name">{{item.name}}</view>
+        <view wx:if="{{item.specText}}" class="item-spec">{{item.specText}}</view>
+        <view class="item-meta">¥{{item.price}} x {{item.quantity}}</view>
+      </view>
+      <view class="item-subtotal">¥{{item.subtotal}}</view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-card app-card">
+    <view class="empty-title">还没有选择商品</view>
+    <view class="empty-desc">返回菜单页添加商品后，再确认订单。</view>
+    <button
+      class="app-btn-secondary back-button"
+      hover-class="button-hover"
+      bindtap="handleBackToMenu"
+    >
+      返回菜单
+    </button>
+  </view>
+
+  <view class="remark-card app-card">
+    <view class="remark-title">订单备注</view>
+    <textarea
+      class="remark-input"
+      value="{{remark}}"
+      maxlength="60"
+      placeholder="可填写少冰、少糖、不要香菜等备注"
+      placeholder-class="remark-placeholder"
+      bindinput="handleRemarkInput"
+    ></textarea>
+  </view>
+
+  <view class="summary-card app-card">
+    <view class="summary-row">
+      <text>商品数量</text>
+      <text>{{cartCount}} 件</text>
+    </view>
+    <view class="summary-row total-row">
+      <text>应付金额</text>
+      <text class="app-price">¥{{cartTotal}}</text>
+    </view>
+  </view>
+
+  <view class="bottom-action">
+    <button
+      class="app-btn-primary pay-button {{hasItems ? '' : 'disabled'}}"
+      hover-class="button-hover"
+      bindtap="handleMockPay"
+    >
+      模拟支付
+    </button>
+  </view>
+</view>

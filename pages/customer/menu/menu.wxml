@@ -1,0 +1,173 @@
+<view class="menu-page">
+  <view class="store-bar app-card">
+    <view>
+      <view class="store-name">{{store.name}}</view>
+      <view class="store-table">{{store.tableNo}}</view>
+    </view>
+    <view class="status-pill">{{store.status}}</view>
+  </view>
+
+  <view class="menu-layout">
+    <scroll-view class="category-sidebar" scroll-y>
+      <view
+        wx:for="{{categories}}"
+        wx:key="id"
+        class="category-item {{activeCategoryId === item.id ? 'active' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="handleCategoryTap"
+      >
+        {{item.name}}
+      </view>
+    </scroll-view>
+
+    <scroll-view class="dish-list" scroll-y>
+      <view
+        wx:for="{{currentDishes}}"
+        wx:key="id"
+        class="dish-card app-card"
+        data-id="{{item.id}}"
+        bindtap="handleDishTap"
+      >
+        <image class="dish-image" src="{{item.image}}" mode="aspectFill"></image>
+
+        <view class="dish-content">
+          <view class="dish-head">
+            <view class="dish-name">{{item.name}}</view>
+            <view class="dish-tag">{{item.tag}}</view>
+          </view>
+          <view class="dish-desc">{{item.description}}</view>
+          <view class="dish-sales">月售 {{item.sales}}</view>
+
+          <view class="dish-bottom">
+            <view class="app-price">¥{{item.price}}</view>
+            <view class="add-wrap">
+              <view wx:if="{{item.cartCount}}" class="count-badge">{{item.cartCount}}</view>
+              <button
+                class="add-button"
+                data-id="{{item.id}}"
+                hover-class="add-button-hover"
+                catchtap="handleQuickAddDish"
+              >
+                +
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="list-bottom-space"></view>
+    </scroll-view>
+  </view>
+
+  <view class="cart-bar">
+    <view class="cart-info" bindtap="handleCartBarTap">
+      <view class="cart-count">已选 {{cartCount}} 件</view>
+      <view class="cart-total">合计 <text class="app-price">¥{{cartTotal}}</text></view>
+    </view>
+    <button
+      class="checkout-button {{cartCount ? '' : 'disabled'}}"
+      hover-class="checkout-hover"
+      bindtap="handleCheckout"
+    >
+      去结算
+    </button>
+  </view>
+
+  <view wx:if="{{showCartPreview}}" class="sheet-mask" catchtap="handleCloseCartPreview"></view>
+  <view wx:if="{{showCartPreview}}" class="cart-sheet">
+    <view class="sheet-head">
+      <view>
+        <view class="sheet-title">已选商品</view>
+        <view class="sheet-subtitle">共 {{cartCount}} 件</view>
+      </view>
+      <view class="clear-action" catchtap="handleClearCart">清空</view>
+    </view>
+
+    <scroll-view class="cart-item-list" scroll-y>
+      <view
+        wx:for="{{cartItems}}"
+        wx:key="key"
+        class="cart-item"
+      >
+        <image class="cart-item-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="cart-item-main">
+          <view class="cart-item-name">{{item.name}}</view>
+          <view class="cart-item-spec">{{item.specText}}</view>
+          <view class="cart-item-price">¥{{item.price}}</view>
+        </view>
+        <view class="cart-item-actions">
+          <view class="remove-action" data-key="{{item.key}}" catchtap="handleCartItemRemove">删除</view>
+          <view class="quantity-control">
+            <button class="quantity-btn" data-key="{{item.key}}" catchtap="handleCartItemMinus">-</button>
+            <view class="quantity-text">{{item.quantity}}</view>
+            <button class="quantity-btn plus" data-key="{{item.key}}" catchtap="handleCartItemPlus">+</button>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{showDishDetail}}" class="detail-mask" catchtap="handleCloseDishDetail"></view>
+  <view wx:if="{{showDishDetail}}" class="dish-detail-sheet">
+    <view class="detail-close" catchtap="handleCloseDishDetail">×</view>
+    <image class="detail-image" src="{{selectedDish.image}}" mode="aspectFill"></image>
+    <view class="detail-body">
+      <view class="detail-title-row">
+        <view class="detail-title">{{selectedDish.name}}</view>
+        <view class="dish-tag">{{selectedDish.tag}}</view>
+      </view>
+      <view class="detail-desc">{{selectedDish.description}}</view>
+      <view class="detail-sales">月售 {{selectedDish.sales}}</view>
+
+      <view class="option-block">
+        <view class="option-title">温度</view>
+        <view class="option-list">
+          <view
+            wx:for="{{temperatureOptions}}"
+            wx:key="*this"
+            class="option-pill {{selectedTemperature === item ? 'active' : ''}}"
+            data-value="{{item}}"
+            catchtap="handleTemperatureTap"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="option-block">
+        <view class="option-title">口味</view>
+        <view class="option-list">
+          <view
+            wx:for="{{tasteOptions}}"
+            wx:key="*this"
+            class="option-pill {{selectedTaste === item ? 'active' : ''}}"
+            data-value="{{item}}"
+            catchtap="handleTasteTap"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="detail-bottom">
+        <view>
+          <view class="detail-price app-price">¥{{selectedDish.price}}</view>
+          <view class="detail-spec">{{selectedTemperature}} / {{selectedTaste}}</view>
+        </view>
+        <view class="quantity-control">
+          <button class="quantity-btn" catchtap="handleDetailQuantityMinus">-</button>
+          <view class="quantity-text">{{detailQuantity}}</view>
+          <button class="quantity-btn plus" catchtap="handleDetailQuantityPlus">+</button>
+        </view>
+      </view>
+
+      <button
+        class="app-btn-primary detail-add-button"
+        hover-class="button-hover"
+        catchtap="handleAddDetailToCart"
+      >
+        加入购物车
+      </button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+<view class="placeholder-page">
+  <view class="app-card placeholder-card">
+    <view class="placeholder-title">营业统计</view>
+    <view class="placeholder-desc">页面结构已预留，后续再开发今日数据统计。</view>
+  </view>
+</view>

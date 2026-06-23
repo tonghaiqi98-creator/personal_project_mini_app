@@ -1,0 +1,6 @@
+<view class="placeholder-page">
+  <view class="app-card placeholder-card">
+    <view class="placeholder-title">菜品管理</view>
+    <view class="placeholder-desc">页面结构已预留，后续再开发菜品上下架。</view>
+  </view>
+</view>
