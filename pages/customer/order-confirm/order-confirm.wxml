@@ -15,7 +15,7 @@
   <view wx:if="{{hasItems}}" class="items-card app-card">
     <view
       wx:for="{{items}}"
-      wx:key="id"
+      wx:key="key"
       class="order-item"
     >
       <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>

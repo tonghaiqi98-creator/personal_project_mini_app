@@ -38,10 +38,15 @@ Page({
     const statusMap = {
       paid: '待商家接单',
       accepted: '商家已接单',
-      completed: '订单已完成'
+      completed: '订单已完成',
+      cancelled: '订单已取消'
     }
 
-    return statusMap[status] || '待商家接单'
+    return statusMap[status] || '未知状态'
+  },
+
+  onShow() {
+    this.loadOrder()
   },
 
   formatTime(value) {

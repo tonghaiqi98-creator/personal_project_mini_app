@@ -26,7 +26,7 @@ Page({
     cartItems: [],
     cartMap: {},
     cartCount: 0,
-    cartTotal: '0.00'
+    cartTotal: 0
   },
 
   onLoad() {
@@ -251,7 +251,7 @@ Page({
 
     if (existingItem) {
       existingItem.quantity += quantity
-      existingItem.subtotal = (existingItem.quantity * existingItem.price).toFixed(2)
+      existingItem.subtotal = Number((existingItem.quantity * existingItem.price).toFixed(2))
     } else {
       cartItems.push({
         key,
@@ -263,7 +263,7 @@ Page({
         taste,
         specText: `${temperature} / ${taste}`,
         quantity,
-        subtotal: (quantity * dish.price).toFixed(2)
+        subtotal: Number((quantity * dish.price).toFixed(2))
       })
     }
 
@@ -291,7 +291,7 @@ Page({
         return {
           ...item,
           quantity,
-          subtotal: (quantity * item.price).toFixed(2)
+          subtotal: Number((quantity * item.price).toFixed(2))
         }
       })
       .filter(Boolean)
@@ -401,7 +401,7 @@ Page({
 
     if (existingItem) {
       existingItem.quantity += quantity
-      existingItem.subtotal = (existingItem.quantity * existingItem.price).toFixed(2)
+      existingItem.subtotal = Number((existingItem.quantity * existingItem.price).toFixed(2))
     } else {
       cartItems.push({
         key: nextKey,
@@ -413,7 +413,7 @@ Page({
         taste,
         specText: `${temperature} / ${taste}`,
         quantity,
-        subtotal: (quantity * dish.price).toFixed(2)
+        subtotal: Number((quantity * dish.price).toFixed(2))
       })
     }
 
@@ -458,7 +458,7 @@ Page({
     this.setData({
       cartMap,
       cartCount,
-      cartTotal: cartTotal.toFixed(2)
+      cartTotal: Number(cartTotal.toFixed(2))
     })
     wx.setStorageSync(CART_STORAGE_KEY, cartItems)
   }

@@ -9,7 +9,7 @@ Page({
     },
     cartItems: [],
     cartCount: 0,
-    cartTotal: '0.00',
+    cartTotal: 0,
     hasItems: false
   },
 
@@ -113,7 +113,7 @@ Page({
         return {
           ...item,
           quantity,
-          subtotal: (quantity * item.price).toFixed(2)
+          subtotal: Number((quantity * item.price).toFixed(2))
         }
       })
       .filter(Boolean)
@@ -134,7 +134,7 @@ Page({
     this.setData({
       cartItems,
       cartCount,
-      cartTotal: cartTotal.toFixed(2),
+      cartTotal: Number(cartTotal.toFixed(2)),
       hasItems: cartItems.length > 0
     })
   },

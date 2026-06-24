@@ -8,7 +8,7 @@ Page({
     },
     items: [],
     cartCount: 0,
-    cartTotal: '0.00',
+    cartTotal: 0,
     remark: '',
     hasItems: false
   },
@@ -25,7 +25,7 @@ Page({
       store: draft.store || this.data.store,
       items,
       cartCount: draft.cartCount || 0,
-      cartTotal: draft.cartTotal || '0.00',
+      cartTotal: draft.cartTotal || 0,
       hasItems: items.length > 0
     })
   },
@@ -51,17 +51,26 @@ Page({
 
     const paidOrder = {
       orderNo: `MOCK${Date.now()}`,
+      storeId: 'store_001',
       store: this.data.store,
+      tableNo: this.data.store.tableNo,
+      userId: 'demo_user',
       items: this.data.items,
       cartCount: this.data.cartCount,
-      cartTotal: this.data.cartTotal,
+      totalAmount: Number(this.data.cartTotal),
+      cartTotal: Number(this.data.cartTotal),
       remark: this.data.remark,
       status: 'paid',
-      paidAt: new Date().toISOString()
+      payStatus: 'paid',
+      paidAt: Date.now(),
+      createdAt: Date.now()
     }
 
     wx.setStorageSync('mockLatestOrder', paidOrder)
     this.saveOrderToHistory(paidOrder)
+
+    wx.removeStorageSync('mockCartItems')
+    wx.removeStorageSync('mockCartDraft')
     wx.showModal({
       title: '模拟支付成功',
       content: '订单已生成，即将进入订单详情页。',
