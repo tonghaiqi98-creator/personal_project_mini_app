@@ -1,5 +1,9 @@
 const ORDER_HISTORY_KEY = 'mockOrderHistory'
 const LATEST_ORDER_KEY = 'mockLatestOrder'
+const VALID_ORDER_TRANSITIONS = {
+  paid: ['accepted', 'cancelled'],
+  accepted: ['completed']
+}
 
 function getOrders() {
   return wx.getStorageSync(ORDER_HISTORY_KEY) || []
@@ -27,8 +31,19 @@ function getOrder(orderNo) {
 
 function updateOrderStatus(orderNo, status) {
   const orders = getOrders()
+  const targetOrder = orders.find((order) => order.orderNo === orderNo)
+
+  if (!targetOrder) {
+    return null
+  }
+
+  const allowedStatuses = VALID_ORDER_TRANSITIONS[targetOrder.status] || []
+  if (!allowedStatuses.includes(status)) {
+    return null
+  }
+
   let updatedOrder = null
-  const now = new Date().toISOString()
+  const now = Date.now()
 
   const nextOrders = orders.map((order) => {
     if (order.orderNo !== orderNo) {
@@ -39,7 +54,8 @@ function updateOrderStatus(orderNo, status) {
       ...order,
       status,
       acceptedAt: status === 'accepted' ? now : order.acceptedAt,
-      completedAt: status === 'completed' ? now : order.completedAt
+      completedAt: status === 'completed' ? now : order.completedAt,
+      cancelledAt: status === 'cancelled' ? now : order.cancelledAt
     }
 
     return updatedOrder

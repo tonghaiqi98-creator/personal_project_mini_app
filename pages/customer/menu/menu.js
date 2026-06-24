@@ -202,6 +202,7 @@ Page({
       cartItems: [],
       showCartPreview: false
     }, () => {
+      wx.removeStorageSync(CART_STORAGE_KEY)
       this.refreshCartSummary()
       this.refreshCurrentDishes()
     })

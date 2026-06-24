@@ -57,11 +57,12 @@ Page({
   },
 
   updateStatus(orderNo, status, message) {
+    const currentOrder = this.data.orders.find((order) => order.orderNo === orderNo)
     const updatedOrder = updateOrderStatus(orderNo, status)
 
     if (!updatedOrder) {
       wx.showToast({
-        title: '订单不存在',
+        title: currentOrder ? '当前状态不可操作' : '订单不存在',
         icon: 'none'
       })
       return
