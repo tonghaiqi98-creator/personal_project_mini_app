@@ -1,3 +1,5 @@
+const ORDER_HISTORY_KEY = 'mockOrderHistory'
+
 Page({
   data: {
     store: {
@@ -59,6 +61,7 @@ Page({
     }
 
     wx.setStorageSync('mockLatestOrder', paidOrder)
+    this.saveOrderToHistory(paidOrder)
     wx.showModal({
       title: '模拟支付成功',
       content: '订单已生成，即将进入订单详情页。',
@@ -70,5 +73,12 @@ Page({
         })
       }
     })
+  },
+
+  saveOrderToHistory(order) {
+    const history = wx.getStorageSync(ORDER_HISTORY_KEY) || []
+    const nextHistory = [order, ...history.filter((item) => item.orderNo !== order.orderNo)]
+
+    wx.setStorageSync(ORDER_HISTORY_KEY, nextHistory.slice(0, 50))
   }
 })

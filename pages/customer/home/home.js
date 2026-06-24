@@ -38,6 +38,12 @@ Page({
     })
   },
 
+  handleOrderHistory() {
+    wx.navigateTo({
+      url: '/pages/customer/order-history/order-history'
+    })
+  },
+
   handleMerchantEntry() {
     wx.navigateTo({
       url: '/pages/merchant/home/home'

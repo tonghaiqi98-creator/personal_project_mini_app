@@ -1,3 +1,5 @@
+const ORDER_HISTORY_KEY = 'mockOrderHistory'
+
 Page({
   data: {
     order: null,
@@ -6,12 +8,15 @@ Page({
     paidTimeText: ''
   },
 
-  onLoad() {
-    this.loadLatestOrder()
+  onLoad(options) {
+    this.loadOrder(options && options.orderNo)
   },
 
-  loadLatestOrder() {
-    const order = wx.getStorageSync('mockLatestOrder')
+  loadOrder(orderNo) {
+    const history = wx.getStorageSync(ORDER_HISTORY_KEY) || []
+    const order = orderNo
+      ? history.find((item) => item.orderNo === orderNo)
+      : wx.getStorageSync('mockLatestOrder')
 
     if (!order) {
       this.setData({
@@ -59,6 +64,12 @@ Page({
   handleBackHome() {
     wx.reLaunch({
       url: '/pages/customer/home/home'
+    })
+  },
+
+  handleGoHistory() {
+    wx.navigateTo({
+      url: '/pages/customer/order-history/order-history'
     })
   }
 })

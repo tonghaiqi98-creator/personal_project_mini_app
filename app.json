@@ -5,6 +5,7 @@
     "pages/customer/cart/cart",
     "pages/customer/order-confirm/order-confirm",
     "pages/customer/order-detail/order-detail",
+    "pages/customer/order-history/order-history",
     "pages/merchant/home/home",
     "pages/merchant/orders/orders",
     "pages/merchant/dishes/dishes",

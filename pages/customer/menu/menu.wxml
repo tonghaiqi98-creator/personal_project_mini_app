@@ -80,7 +80,10 @@
         <view class="sheet-title">已选商品</view>
         <view class="sheet-subtitle">共 {{cartCount}} 件</view>
       </view>
-      <view class="clear-action" catchtap="handleClearCart">清空</view>
+      <view class="sheet-actions">
+        <view class="detail-action" catchtap="handleGoCartPage">购物车详情</view>
+        <view class="clear-action" catchtap="handleClearCart">清空</view>
+      </view>
     </view>
 
     <scroll-view class="cart-item-list" scroll-y>
@@ -166,7 +169,7 @@
         hover-class="button-hover"
         catchtap="handleAddDetailToCart"
       >
-        加入购物车
+        {{isEditingCartItem ? '保存修改' : '加入购物车'}}
       </button>
     </view>
   </view>

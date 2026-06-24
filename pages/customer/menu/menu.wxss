@@ -277,6 +277,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24rpx;
   margin-bottom: 18rpx;
 }
 
@@ -296,6 +297,19 @@
 .remove-action {
   color: #777777;
   font-size: 24rpx;
+}
+
+.sheet-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.detail-action {
+  color: #D77A32;
+  font-size: 24rpx;
+  font-weight: 700;
 }
 
 .cart-item-list {

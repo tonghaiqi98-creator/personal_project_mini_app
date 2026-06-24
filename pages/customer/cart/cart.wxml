@@ -1,6 +1,84 @@
-<view class="placeholder-page">
-  <view class="app-card placeholder-card">
-    <view class="placeholder-title">购物车</view>
-    <view class="placeholder-desc">页面结构已预留，后续再开发购物车详情。</view>
+<view class="cart-page app-safe-bottom">
+  <view class="store-card app-card">
+    <view>
+      <view class="store-label">当前桌号</view>
+      <view class="store-table">{{store.tableNo}}</view>
+    </view>
+    <view class="store-name">{{store.name}}</view>
+  </view>
+
+  <view class="section-head">
+    <view>
+      <view class="app-section-title">购物车</view>
+      <view class="app-section-subtitle">共 {{cartCount}} 件商品</view>
+    </view>
+    <view wx:if="{{hasItems}}" class="clear-action" bindtap="handleClearCart">清空</view>
+  </view>
+
+  <view wx:if="{{hasItems}}" class="cart-list app-card">
+    <view
+      wx:for="{{cartItems}}"
+      wx:key="key"
+      class="cart-item"
+      data-key="{{item.key}}"
+      bindtap="handleItemTap"
+    >
+      <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="item-main">
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-spec">{{item.specText}}</view>
+        <view class="item-price">¥{{item.price}}</view>
+      </view>
+
+      <view class="item-side" catchtap="noop">
+        <view class="item-subtotal">¥{{item.subtotal}}</view>
+        <view class="quantity-control">
+          <button class="quantity-btn" data-key="{{item.key}}" catchtap="handleQuantityMinus">-</button>
+          <view class="quantity-text">{{item.quantity}}</view>
+          <button class="quantity-btn plus" data-key="{{item.key}}" catchtap="handleQuantityPlus">+</button>
+        </view>
+        <view class="remove-action" data-key="{{item.key}}" catchtap="handleRemoveItem">删除</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-card app-card">
+    <view class="empty-title">购物车是空的</view>
+    <view class="empty-desc">返回菜单选择喜欢的咖啡、轻食或甜品。</view>
+    <button
+      class="app-btn-secondary empty-button"
+      hover-class="button-hover"
+      bindtap="handleContinueOrder"
+    >
+      去点餐
+    </button>
+  </view>
+
+  <view class="summary-card app-card">
+    <view class="summary-row">
+      <text>商品数量</text>
+      <text>{{cartCount}} 件</text>
+    </view>
+    <view class="summary-row total-row">
+      <text>合计金额</text>
+      <text class="app-price">¥{{cartTotal}}</text>
+    </view>
+  </view>
+
+  <view class="bottom-actions">
+    <button
+      class="app-btn-secondary continue-button"
+      hover-class="button-hover"
+      bindtap="handleContinueOrder"
+    >
+      继续点餐
+    </button>
+    <button
+      class="checkout-button {{hasItems ? '' : 'disabled'}}"
+      hover-class="checkout-hover"
+      bindtap="handleCheckout"
+    >
+      去结算
+    </button>
   </view>
 </view>

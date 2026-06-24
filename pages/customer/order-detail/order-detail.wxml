@@ -33,7 +33,7 @@
     <view class="items-card app-card">
       <view
         wx:for="{{order.items}}"
-        wx:key="id"
+        wx:key="key"
         class="order-item"
       >
         <image class="item-image" src="{{item.image}}" mode="aspectFill"></image>
@@ -69,6 +69,13 @@
         bindtap="handleBackHome"
       >
         返回首页
+      </button>
+      <button
+        class="app-btn-primary action-button"
+        hover-class="button-hover"
+        bindtap="handleGoHistory"
+      >
+        历史订单
       </button>
     </view>
   </block>

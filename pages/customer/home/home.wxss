@@ -151,9 +151,22 @@
   width: 100%;
 }
 
-.merchant-entry {
+.quick-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
   margin-top: 24rpx;
+}
+
+.quick-link {
   color: #777777;
   font-size: 24rpx;
   text-align: center;
+}
+
+.quick-divider {
+  width: 1rpx;
+  height: 24rpx;
+  background: #DDDDDD;
 }

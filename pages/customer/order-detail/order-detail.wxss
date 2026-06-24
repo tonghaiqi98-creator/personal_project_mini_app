@@ -150,12 +150,15 @@
 }
 
 .bottom-action {
+  display: flex;
+  gap: 20rpx;
   margin-top: 36rpx;
 }
 
 .action-button,
 .empty-button {
-  width: 100%;
+  flex: 1;
+  width: auto;
 }
 
 .empty-card {

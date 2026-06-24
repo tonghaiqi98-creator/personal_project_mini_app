@@ -59,6 +59,10 @@
       开始点餐
     </button>
 
-    <view class="merchant-entry" bindtap="handleMerchantEntry">商家入口</view>
+    <view class="quick-links">
+      <view class="quick-link" bindtap="handleOrderHistory">历史订单</view>
+      <view class="quick-divider"></view>
+      <view class="quick-link" bindtap="handleMerchantEntry">商家入口</view>
+    </view>
   </view>
 </view>

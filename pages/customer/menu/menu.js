@@ -1,5 +1,8 @@
 const { categories, dishes } = require('../../../utils/mockMenu')
 
+const CART_STORAGE_KEY = 'mockCartItems'
+const CART_EDIT_ITEM_KEY = 'mockCartEditItemKey'
+
 Page({
   data: {
     store: {
@@ -16,6 +19,8 @@ Page({
     selectedTemperature: '热',
     selectedTaste: '标准',
     detailQuantity: 1,
+    editingCartKey: '',
+    isEditingCartItem: false,
     showDishDetail: false,
     showCartPreview: false,
     cartItems: [],
@@ -25,7 +30,23 @@ Page({
   },
 
   onLoad() {
-    this.refreshCurrentDishes()
+    this.loadCartItems()
+  },
+
+  onShow() {
+    this.loadCartItems()
+  },
+
+  loadCartItems() {
+    const cartItems = wx.getStorageSync(CART_STORAGE_KEY) || []
+
+    this.setData({
+      cartItems
+    }, () => {
+      this.refreshCartSummary()
+      this.refreshCurrentDishes()
+      this.openPendingEditDish()
+    })
   },
 
   handleCategoryTap(event) {
@@ -44,25 +65,15 @@ Page({
 
   handleDishTap(event) {
     const { id } = event.currentTarget.dataset
-    const selectedDish = dishes.find((dish) => dish.id === id)
-
-    if (!selectedDish) {
-      return
-    }
-
-    this.setData({
-      selectedDish,
-      selectedTemperature: this.getDefaultTemperature(selectedDish),
-      selectedTaste: '标准',
-      detailQuantity: 1,
-      showDishDetail: true
-    })
+    this.openDishDetailById(id)
   },
 
   handleCloseDishDetail() {
     this.setData({
       showDishDetail: false,
-      selectedDish: null
+      selectedDish: null,
+      editingCartKey: '',
+      isEditingCartItem: false
     })
   },
 
@@ -111,9 +122,27 @@ Page({
   },
 
   handleAddDetailToCart() {
-    const { selectedDish, selectedTemperature, selectedTaste, detailQuantity } = this.data
+    const {
+      selectedDish,
+      selectedTemperature,
+      selectedTaste,
+      detailQuantity,
+      editingCartKey
+    } = this.data
 
     if (!selectedDish) {
+      return
+    }
+
+    if (editingCartKey) {
+      this.updateCartItemSpec({
+        originalKey: editingCartKey,
+        dish: selectedDish,
+        temperature: selectedTemperature,
+        taste: selectedTaste,
+        quantity: detailQuantity
+      })
+      this.handleCloseDishDetail()
       return
     }
 
@@ -165,6 +194,15 @@ Page({
     }, () => {
       this.refreshCartSummary()
       this.refreshCurrentDishes()
+    })
+  },
+
+  handleGoCartPage() {
+    this.setData({
+      showCartPreview: false
+    })
+    wx.navigateTo({
+      url: '/pages/customer/cart/cart'
     })
   },
 
@@ -287,6 +325,110 @@ Page({
     return dish.categoryId === 'light-food' || dish.categoryId === 'dessert' ? '常温' : '热'
   },
 
+  openPendingEditDish() {
+    const itemKey = wx.getStorageSync(CART_EDIT_ITEM_KEY)
+
+    if (!itemKey) {
+      return
+    }
+
+    wx.removeStorageSync(CART_EDIT_ITEM_KEY)
+    this.openCartItemEditor(itemKey)
+  },
+
+  openDishDetailById(id) {
+    const selectedDish = dishes.find((dish) => dish.id === id)
+
+    if (!selectedDish) {
+      return
+    }
+
+    this.setData({
+      activeCategoryId: selectedDish.categoryId,
+      selectedDish,
+      selectedTemperature: this.getDefaultTemperature(selectedDish),
+      selectedTaste: '标准',
+      detailQuantity: 1,
+      editingCartKey: '',
+      isEditingCartItem: false,
+      showDishDetail: true
+    }, () => {
+      this.refreshCurrentDishes()
+    })
+  },
+
+  openCartItemEditor(itemKey) {
+    const cartItem = this.data.cartItems.find((item) => item.key === itemKey)
+
+    if (!cartItem) {
+      wx.showToast({
+        title: '该商品已不在购物车',
+        icon: 'none'
+      })
+      return
+    }
+
+    const selectedDish = dishes.find((dish) => dish.id === cartItem.id)
+
+    if (!selectedDish) {
+      return
+    }
+
+    this.setData({
+      activeCategoryId: selectedDish.categoryId,
+      selectedDish,
+      selectedTemperature: cartItem.temperature,
+      selectedTaste: cartItem.taste,
+      detailQuantity: cartItem.quantity,
+      editingCartKey: itemKey,
+      isEditingCartItem: true,
+      showDishDetail: true
+    }, () => {
+      this.refreshCurrentDishes()
+    })
+  },
+
+  updateCartItemSpec({ originalKey, dish, temperature, taste, quantity }) {
+    const nextKey = this.createCartKey(dish.id, temperature, taste)
+    const originalItem = this.data.cartItems.find((item) => item.key === originalKey)
+
+    if (!originalItem) {
+      return
+    }
+
+    let cartItems = this.data.cartItems.filter((item) => item.key !== originalKey)
+    const existingItem = cartItems.find((item) => item.key === nextKey)
+
+    if (existingItem) {
+      existingItem.quantity += quantity
+      existingItem.subtotal = (existingItem.quantity * existingItem.price).toFixed(2)
+    } else {
+      cartItems.push({
+        key: nextKey,
+        id: dish.id,
+        name: dish.name,
+        price: dish.price,
+        image: dish.image,
+        temperature,
+        taste,
+        specText: `${temperature} / ${taste}`,
+        quantity,
+        subtotal: (quantity * dish.price).toFixed(2)
+      })
+    }
+
+    this.setData({
+      cartItems
+    }, () => {
+      this.refreshCartSummary()
+      this.refreshCurrentDishes()
+      wx.showToast({
+        title: '已更新口味',
+        icon: 'none'
+      })
+    })
+  },
+
   refreshCurrentDishes() {
     const { activeCategoryId, cartMap } = this.data
     const currentDishes = dishes
@@ -318,5 +460,6 @@ Page({
       cartCount,
       cartTotal: cartTotal.toFixed(2)
     })
+    wx.setStorageSync(CART_STORAGE_KEY, cartItems)
   }
 })

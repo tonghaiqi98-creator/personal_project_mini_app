@@ -1,0 +1,55 @@
+<view class="history-page app-safe-bottom">
+  <view class="page-head">
+    <view>
+      <view class="app-section-title">历史订单</view>
+      <view class="app-section-subtitle">查看本机 Mock 点单记录</view>
+    </view>
+    <button
+      class="head-button"
+      hover-class="head-button-hover"
+      bindtap="handleStartOrder"
+    >
+      去点餐
+    </button>
+  </view>
+
+  <view wx:if="{{hasOrders}}" class="order-list">
+    <view
+      wx:for="{{orders}}"
+      wx:key="orderNo"
+      class="order-card app-card"
+      data-order-no="{{item.orderNo}}"
+      bindtap="handleOrderTap"
+    >
+      <view class="order-top">
+        <view>
+          <view class="order-no">{{item.orderNo}}</view>
+          <view class="order-time">{{item.timeText}}</view>
+        </view>
+        <view class="status-pill">{{item.statusText}}</view>
+      </view>
+
+      <view class="order-body">
+        <view class="order-store">{{item.store.name}} · {{item.store.tableNo}}</view>
+        <view class="order-summary">{{item.summaryText}}</view>
+      </view>
+
+      <view class="order-bottom">
+        <view class="order-count">共 {{item.cartCount}} 件</view>
+        <view class="app-price">¥{{item.cartTotal}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-card app-card">
+    <view class="empty-title">暂无历史订单</view>
+    <view class="empty-desc">完成一次模拟支付后，这里会显示点单记录。</view>
+    <button
+      class="app-btn-primary empty-button"
+      hover-class="button-hover"
+      bindtap="handleStartOrder"
+    >
+      去点餐
+    </button>
+  </view>
+</view>
