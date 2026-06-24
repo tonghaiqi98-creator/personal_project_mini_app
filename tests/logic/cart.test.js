@@ -106,6 +106,36 @@ module.exports = ({ test, assert, helpers }) => {
     assert.deepStrictEqual(wxMock.getStorageSync('mockCartItems'), [])
   })
 
+  test('cart preview item opens dish detail for spec editing', () => {
+    const { page } = setupMenuPage()
+    const dish = dishes[0]
+
+    page.addCartItem({
+      dish,
+      temperature: dish.temperatureOptions[1],
+      taste: dish.tasteOptions[1],
+      quantity: 2
+    })
+    page.setData({
+      showCartPreview: true
+    })
+    page.handleCartPreviewItemTap({
+      currentTarget: {
+        dataset: {
+          key: page.data.cartItems[0].key
+        }
+      }
+    })
+
+    assert.strictEqual(page.data.showCartPreview, false)
+    assert.strictEqual(page.data.showDishDetail, true)
+    assert.strictEqual(page.data.isEditingCartItem, true)
+    assert.strictEqual(page.data.selectedDish.id, dish.id)
+    assert.strictEqual(page.data.selectedTemperature, dish.temperatureOptions[1])
+    assert.strictEqual(page.data.selectedTaste, dish.tasteOptions[1])
+    assert.strictEqual(page.data.detailQuantity, 2)
+  })
+
   test('cart calculates total count and amount', () => {
     const { page } = setupMenuPage()
 

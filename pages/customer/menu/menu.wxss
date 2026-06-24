@@ -324,6 +324,10 @@
   border-top: 1rpx solid #EEEEEE;
 }
 
+.cart-item:active {
+  opacity: 0.86;
+}
+
 .cart-item-image {
   width: 92rpx;
   height: 92rpx;

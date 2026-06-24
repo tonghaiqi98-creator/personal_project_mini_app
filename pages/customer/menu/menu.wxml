@@ -91,6 +91,8 @@
         wx:for="{{cartItems}}"
         wx:key="key"
         class="cart-item"
+        data-key="{{item.key}}"
+        bindtap="handleCartPreviewItemTap"
       >
         <image class="cart-item-image" src="{{item.image}}" mode="aspectFill"></image>
         <view class="cart-item-main">

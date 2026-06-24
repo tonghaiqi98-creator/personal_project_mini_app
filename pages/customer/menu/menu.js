@@ -197,6 +197,16 @@ Page({
     this.removeCartItem(event.currentTarget.dataset.key)
   },
 
+  handleCartPreviewItemTap(event) {
+    const { key } = event.currentTarget.dataset
+
+    this.setData({
+      showCartPreview: false
+    }, () => {
+      this.openCartItemEditor(key)
+    })
+  },
+
   handleClearCart() {
     this.setData({
       cartItems: [],
