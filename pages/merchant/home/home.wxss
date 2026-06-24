@@ -1,21 +1,91 @@
-.placeholder-page {
+.merchant-page {
   min-height: 100vh;
   padding: 32rpx;
   box-sizing: border-box;
 }
 
-.placeholder-card {
-  padding: 36rpx 32rpx;
+.header-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 34rpx 32rpx;
 }
 
-.placeholder-title {
+.header-label {
+  color: #777777;
+  font-size: 24rpx;
+  margin-bottom: 8rpx;
+}
+
+.header-title {
   color: #222222;
-  font-size: 34rpx;
+  font-size: 42rpx;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.status-pill {
+  flex-shrink: 0;
+  padding: 10rpx 18rpx;
+  border-radius: 999rpx;
+  background: #FFF3EA;
+  color: #D77A32;
+  font-size: 24rpx;
   font-weight: 700;
 }
 
-.placeholder-desc {
-  margin-top: 12rpx;
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  margin-top: 24rpx;
+}
+
+.stat-card {
+  padding: 28rpx 26rpx;
+}
+
+.stat-value {
+  color: #222222;
+  font-size: 38rpx;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.stat-label {
+  margin-top: 8rpx;
   color: #777777;
   font-size: 26rpx;
+}
+
+.entry-list {
+  margin-top: 32rpx;
+}
+
+.entry-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 30rpx 32rpx;
+  margin-bottom: 20rpx;
+}
+
+.entry-title {
+  color: #222222;
+  font-size: 31rpx;
+  font-weight: 700;
+}
+
+.entry-desc {
+  margin-top: 8rpx;
+  color: #777777;
+  font-size: 25rpx;
+}
+
+.entry-arrow {
+  color: #D77A32;
+  font-size: 48rpx;
+  line-height: 1;
 }

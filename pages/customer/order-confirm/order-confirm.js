@@ -1,4 +1,4 @@
-const ORDER_HISTORY_KEY = 'mockOrderHistory'
+const { saveOrder } = require('../../../utils/mockOrderStore')
 
 Page({
   data: {
@@ -66,8 +66,7 @@ Page({
       createdAt: Date.now()
     }
 
-    wx.setStorageSync('mockLatestOrder', paidOrder)
-    this.saveOrderToHistory(paidOrder)
+    saveOrder(paidOrder)
 
     wx.removeStorageSync('mockCartItems')
     wx.removeStorageSync('mockCartDraft')
@@ -82,12 +81,5 @@ Page({
         })
       }
     })
-  },
-
-  saveOrderToHistory(order) {
-    const history = wx.getStorageSync(ORDER_HISTORY_KEY) || []
-    const nextHistory = [order, ...history.filter((item) => item.orderNo !== order.orderNo)]
-
-    wx.setStorageSync(ORDER_HISTORY_KEY, nextHistory.slice(0, 50))
   }
 })

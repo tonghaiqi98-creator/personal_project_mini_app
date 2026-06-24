@@ -1,0 +1,131 @@
+.create-page {
+  min-height: 100vh;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.page-head {
+  margin-bottom: 22rpx;
+}
+
+.form-card {
+  padding: 30rpx;
+}
+
+.field {
+  margin-bottom: 28rpx;
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field-label {
+  color: #222222;
+  font-size: 28rpx;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+}
+
+.field-input,
+.picker-value,
+.field-textarea {
+  width: 100%;
+  min-height: 82rpx;
+  padding: 0 22rpx;
+  border-radius: 18rpx;
+  background: #F7F7F7;
+  color: #222222;
+  font-size: 27rpx;
+  box-sizing: border-box;
+}
+
+.field-input,
+.picker-value {
+  line-height: 82rpx;
+}
+
+.field-textarea {
+  height: 150rpx;
+  padding-top: 18rpx;
+  line-height: 1.5;
+}
+
+.image-picker {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 16rpx;
+  border-radius: 18rpx;
+  background: #F7F7F7;
+}
+
+.preview-image {
+  width: 108rpx;
+  height: 108rpx;
+  border-radius: 16rpx;
+  background: #EEEEEE;
+}
+
+.picker-text {
+  color: #777777;
+  font-size: 26rpx;
+}
+
+.status-row {
+  display: flex;
+  gap: 18rpx;
+}
+
+.option-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+}
+
+.option-chip {
+  min-width: 112rpx;
+  height: 62rpx;
+  line-height: 62rpx;
+  padding: 0 20rpx;
+  border-radius: 999rpx;
+  background: #F7F7F7;
+  color: #777777;
+  font-size: 25rpx;
+  font-weight: 700;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.option-chip.active {
+  background: #FFF3EA;
+  color: #D77A32;
+}
+
+.option-chip.add {
+  border: 1rpx dashed #D77A32;
+  background: #FFFFFF;
+  color: #D77A32;
+}
+
+.status-pill {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  border-radius: 999rpx;
+  background: #F7F7F7;
+  color: #777777;
+  font-size: 26rpx;
+  font-weight: 700;
+  text-align: center;
+}
+
+.status-pill.active {
+  background: #FFF3EA;
+  color: #D77A32;
+}
+
+.submit-button {
+  width: 100%;
+  margin-top: 32rpx;
+}

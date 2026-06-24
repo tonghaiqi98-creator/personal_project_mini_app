@@ -1,4 +1,9 @@
-const ORDER_HISTORY_KEY = 'mockOrderHistory'
+const {
+  getOrders,
+  getStatusText,
+  formatTime,
+  getOrderSummary
+} = require('../../../utils/mockOrderStore')
 
 Page({
   data: {
@@ -11,12 +16,11 @@ Page({
   },
 
   loadOrders() {
-    const history = wx.getStorageSync(ORDER_HISTORY_KEY) || []
-    const orders = history.map((order) => ({
+    const orders = getOrders().map((order) => ({
       ...order,
-      statusText: this.getStatusText(order.status),
-      timeText: this.formatTime(order.paidAt),
-      summaryText: this.getSummaryText(order.items)
+      statusText: getStatusText(order.status),
+      timeText: formatTime(order.paidAt),
+      summaryText: getOrderSummary(order.items)
     }))
 
     this.setData({
@@ -37,34 +41,5 @@ Page({
     wx.navigateTo({
       url: '/pages/customer/menu/menu'
     })
-  },
-
-  getStatusText(status) {
-    const statusMap = {
-      paid: '待商家接单',
-      accepted: '商家已接单',
-      completed: '订单已完成',
-      cancelled: '已取消'
-    }
-
-    return statusMap[status] || '待商家接单'
-  },
-
-  getSummaryText(items = []) {
-    return items
-      .slice(0, 3)
-      .map((item) => `${item.name} x${item.quantity}`)
-      .join('、')
-  },
-
-  formatTime(value) {
-    if (!value) {
-      return ''
-    }
-
-    const date = new Date(value)
-    const pad = (number) => `${number}`.padStart(2, '0')
-
-    return `${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
   }
 })

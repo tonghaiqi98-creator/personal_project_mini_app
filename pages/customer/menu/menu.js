@@ -1,4 +1,5 @@
-const { categories, dishes } = require('../../../utils/mockMenu')
+const { categories } = require('../../../utils/mockMenu')
+const { getCustomerDishes } = require('../../../utils/mockDishStore')
 
 const CART_STORAGE_KEY = 'mockCartItems'
 const CART_EDIT_ITEM_KEY = 'mockCartEditItemKey'
@@ -11,10 +12,11 @@ Page({
       status: '营业中'
     },
     categories,
+    dishes: [],
     activeCategoryId: categories[0].id,
     currentDishes: [],
-    temperatureOptions: ['热', '冰', '常温'],
-    tasteOptions: ['标准', '少糖', '无糖'],
+    temperatureOptions: [],
+    tasteOptions: [],
     selectedDish: null,
     selectedTemperature: '热',
     selectedTaste: '标准',
@@ -30,11 +32,19 @@ Page({
   },
 
   onLoad() {
-    this.loadCartItems()
+    this.loadDishes()
   },
 
   onShow() {
-    this.loadCartItems()
+    this.loadDishes()
+  },
+
+  loadDishes() {
+    this.setData({
+      dishes: getCustomerDishes()
+    }, () => {
+      this.loadCartItems()
+    })
   },
 
   loadCartItems() {
@@ -107,7 +117,7 @@ Page({
 
   handleQuickAddDish(event) {
     const { id } = event.currentTarget.dataset
-    const dish = dishes.find((item) => item.id === id)
+    const dish = this.data.dishes.find((item) => item.id === id)
 
     if (!dish) {
       return
@@ -116,7 +126,7 @@ Page({
     this.addCartItem({
       dish,
       temperature: this.getDefaultTemperature(dish),
-      taste: '标准',
+      taste: this.getDefaultTaste(dish),
       quantity: 1
     })
   },
@@ -322,7 +332,15 @@ Page({
   },
 
   getDefaultTemperature(dish) {
-    return dish.categoryId === 'light-food' || dish.categoryId === 'dessert' ? '常温' : '热'
+    return dish.temperatureOptions && dish.temperatureOptions.length
+      ? dish.temperatureOptions[0]
+      : '常温'
+  },
+
+  getDefaultTaste(dish) {
+    return dish.tasteOptions && dish.tasteOptions.length
+      ? dish.tasteOptions[0]
+      : '标准'
   },
 
   openPendingEditDish() {
@@ -337,7 +355,7 @@ Page({
   },
 
   openDishDetailById(id) {
-    const selectedDish = dishes.find((dish) => dish.id === id)
+    const selectedDish = this.data.dishes.find((dish) => dish.id === id)
 
     if (!selectedDish) {
       return
@@ -347,7 +365,9 @@ Page({
       activeCategoryId: selectedDish.categoryId,
       selectedDish,
       selectedTemperature: this.getDefaultTemperature(selectedDish),
-      selectedTaste: '标准',
+      selectedTaste: this.getDefaultTaste(selectedDish),
+      temperatureOptions: selectedDish.temperatureOptions || [],
+      tasteOptions: selectedDish.tasteOptions || [],
       detailQuantity: 1,
       editingCartKey: '',
       isEditingCartItem: false,
@@ -368,7 +388,7 @@ Page({
       return
     }
 
-    const selectedDish = dishes.find((dish) => dish.id === cartItem.id)
+    const selectedDish = this.data.dishes.find((dish) => dish.id === cartItem.id)
 
     if (!selectedDish) {
       return
@@ -379,6 +399,8 @@ Page({
       selectedDish,
       selectedTemperature: cartItem.temperature,
       selectedTaste: cartItem.taste,
+      temperatureOptions: selectedDish.temperatureOptions || [],
+      tasteOptions: selectedDish.tasteOptions || [],
       detailQuantity: cartItem.quantity,
       editingCartKey: itemKey,
       isEditingCartItem: true,
@@ -430,9 +452,9 @@ Page({
   },
 
   refreshCurrentDishes() {
-    const { activeCategoryId, cartMap } = this.data
+    const { activeCategoryId, cartMap, dishes } = this.data
     const currentDishes = dishes
-      .filter((dish) => dish.categoryId === activeCategoryId && dish.status === 'on_sale')
+      .filter((dish) => dish.categoryId === activeCategoryId)
       .map((dish) => ({
         ...dish,
         cartCount: cartMap[dish.id] || 0

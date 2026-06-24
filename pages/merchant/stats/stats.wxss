@@ -1,20 +1,86 @@
-.placeholder-page {
+.stats-page {
   min-height: 100vh;
   padding: 32rpx;
   box-sizing: border-box;
 }
 
-.placeholder-card {
-  padding: 36rpx 32rpx;
+.page-head {
+  margin-bottom: 22rpx;
 }
 
-.placeholder-title {
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.metric-card {
+  padding: 28rpx;
+}
+
+.metric-card:first-child {
+  grid-column: span 2;
+}
+
+.metric-value {
   color: #222222;
-  font-size: 34rpx;
+  font-size: 38rpx;
+  font-weight: 800;
+}
+
+.metric-label {
+  margin-top: 8rpx;
+  color: #777777;
+  font-size: 26rpx;
+}
+
+.top-section {
+  margin-top: 36rpx;
+}
+
+.top-list {
+  margin-top: 18rpx;
+  padding: 8rpx 28rpx;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #EEEEEE;
+}
+
+.top-row:last-child {
+  border-bottom: 0;
+}
+
+.top-name {
+  color: #222222;
+  font-size: 29rpx;
   font-weight: 700;
 }
 
-.placeholder-desc {
+.top-meta {
+  margin-top: 6rpx;
+  color: #777777;
+  font-size: 24rpx;
+}
+
+.empty-card {
+  margin-top: 18rpx;
+  padding: 44rpx 32rpx;
+  text-align: center;
+}
+
+.empty-title {
+  color: #222222;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.empty-desc {
   margin-top: 12rpx;
   color: #777777;
   font-size: 26rpx;

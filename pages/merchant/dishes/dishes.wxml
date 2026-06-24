@@ -1,6 +1,115 @@
-<view class="placeholder-page">
-  <view class="app-card placeholder-card">
-    <view class="placeholder-title">菜品管理</view>
-    <view class="placeholder-desc">页面结构已预留，后续再开发菜品上下架。</view>
+<view class="dishes-page app-safe-bottom">
+  <view class="page-head">
+    <view>
+      <view class="app-section-title">菜品管理</view>
+      <view class="app-section-subtitle">Mock 数据会影响顾客菜单展示</view>
+    </view>
+    <button class="create-button" bindtap="handleGoCreate">上架商品</button>
+  </view>
+
+  <view class="summary-grid">
+    <view class="summary-card app-card">
+      <view class="summary-value">{{onSaleCount}}</view>
+      <view class="summary-label">已上架</view>
+    </view>
+    <view class="summary-card app-card">
+      <view class="summary-value">{{offSaleCount}}</view>
+      <view class="summary-label">已下架</view>
+    </view>
+  </view>
+
+  <view class="dish-list">
+    <view
+      wx:for="{{dishes}}"
+      wx:key="id"
+      class="dish-card app-card"
+    >
+      <image class="dish-image" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="dish-main">
+        <view class="dish-name">{{item.name}}</view>
+        <view class="dish-meta">{{item.categoryName}} · 月售 {{item.sales}}</view>
+        <view class="dish-desc">{{item.description}}</view>
+        <view class="option-text">温度：{{item.temperatureOptionsText}}</view>
+        <view class="option-text">口味：{{item.tasteOptionsText}}</view>
+        <view class="dish-bottom">
+          <view class="app-price">¥{{item.price}}</view>
+          <view class="status {{item.status === 'on_sale' ? 'on' : 'off'}}">
+            {{item.status === 'on_sale' ? '已上架' : '已下架'}}
+          </view>
+        </view>
+        <view class="actions">
+          <button
+            class="action-button secondary"
+            data-id="{{item.id}}"
+            data-price="{{item.price}}"
+            catchtap="handleEditPrice"
+          >
+            改价
+          </button>
+          <button
+            class="action-button secondary"
+            data-id="{{item.id}}"
+            data-description="{{item.description}}"
+            catchtap="handleEditDescription"
+          >
+            简介
+          </button>
+          <button
+            class="action-button secondary"
+            data-id="{{item.id}}"
+            catchtap="handleEditTemperatureOptions"
+          >
+            温度
+          </button>
+          <button
+            class="action-button secondary"
+            data-id="{{item.id}}"
+            catchtap="handleEditTasteOptions"
+          >
+            口味
+          </button>
+          <button
+            class="action-button"
+            data-id="{{item.id}}"
+            data-status="{{item.status}}"
+            catchtap="handleToggleStatus"
+          >
+            {{item.status === 'on_sale' ? '下架' : '上架'}}
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showOptionEditor}}" class="sheet-mask" catchtap="handleCloseOptionEditor"></view>
+  <view wx:if="{{showOptionEditor}}" class="option-sheet">
+    <view class="sheet-head">
+      <view>
+        <view class="sheet-title">{{optionEditorTitle}}</view>
+        <view class="sheet-desc">点选标签，可添加自定义选项</view>
+      </view>
+      <view class="sheet-close" catchtap="handleCloseOptionEditor">×</view>
+    </view>
+
+    <view class="option-list">
+      <view
+        wx:for="{{optionItems}}"
+        wx:key="name"
+        class="option-chip {{item.selected ? 'active' : ''}}"
+        data-name="{{item.name}}"
+        catchtap="handleOptionTap"
+      >
+        {{item.name}}
+      </view>
+      <view class="option-chip add" catchtap="handleAddOption">+ 自定义</view>
+    </view>
+
+    <button
+      class="app-btn-primary save-options-button"
+      hover-class="button-hover"
+      catchtap="handleSaveOptions"
+    >
+      保存选项
+    </button>
   </view>
 </view>

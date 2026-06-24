@@ -1,6 +1,52 @@
-<view class="placeholder-page">
-  <view class="app-card placeholder-card">
-    <view class="placeholder-title">商家首页</view>
-    <view class="placeholder-desc">页面结构已预留，后续再开发商家端功能。</view>
+<view class="merchant-page app-safe-bottom">
+  <view class="header-card app-card">
+    <view>
+      <view class="header-label">商家端</view>
+      <view class="header-title">巷口咖啡</view>
+    </view>
+    <view class="status-pill">营业中</view>
+  </view>
+
+  <view class="stats-grid">
+    <view class="stat-card app-card">
+      <view class="stat-value">{{stats.orderCount}}</view>
+      <view class="stat-label">今日订单</view>
+    </view>
+    <view class="stat-card app-card">
+      <view class="stat-value">¥{{stats.totalSales}}</view>
+      <view class="stat-label">今日营业额</view>
+    </view>
+    <view class="stat-card app-card">
+      <view class="stat-value">{{stats.pendingCount}}</view>
+      <view class="stat-label">待接单</view>
+    </view>
+    <view class="stat-card app-card">
+      <view class="stat-value">{{stats.completedCount}}</view>
+      <view class="stat-label">已完成</view>
+    </view>
+  </view>
+
+  <view class="entry-list">
+    <view class="entry-card app-card" bindtap="handleGoOrders">
+      <view>
+        <view class="entry-title">订单管理</view>
+        <view class="entry-desc">查看新订单、接单、完成订单</view>
+      </view>
+      <view class="entry-arrow">›</view>
+    </view>
+    <view class="entry-card app-card" bindtap="handleGoDishes">
+      <view>
+        <view class="entry-title">菜品管理</view>
+        <view class="entry-desc">上架下架菜品，快速修改价格</view>
+      </view>
+      <view class="entry-arrow">›</view>
+    </view>
+    <view class="entry-card app-card" bindtap="handleGoStats">
+      <view>
+        <view class="entry-title">营业统计</view>
+        <view class="entry-desc">查看今日数据和热销商品</view>
+      </view>
+      <view class="entry-arrow">›</view>
+    </view>
   </view>
 </view>

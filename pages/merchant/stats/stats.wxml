@@ -1,6 +1,50 @@
-<view class="placeholder-page">
-  <view class="app-card placeholder-card">
-    <view class="placeholder-title">营业统计</view>
-    <view class="placeholder-desc">页面结构已预留，后续再开发今日数据统计。</view>
+<view class="stats-page app-safe-bottom">
+  <view class="page-head">
+    <view class="app-section-title">营业统计</view>
+    <view class="app-section-subtitle">基于本地 Mock 订单统计今日数据</view>
+  </view>
+
+  <view class="metrics-grid">
+    <view class="metric-card app-card">
+      <view class="metric-value">{{stats.orderCount}}</view>
+      <view class="metric-label">今日订单</view>
+    </view>
+    <view class="metric-card app-card">
+      <view class="metric-value">¥{{stats.totalSales}}</view>
+      <view class="metric-label">今日营业额</view>
+    </view>
+    <view class="metric-card app-card">
+      <view class="metric-value">{{stats.pendingCount}}</view>
+      <view class="metric-label">待接单</view>
+    </view>
+    <view class="metric-card app-card">
+      <view class="metric-value">{{stats.acceptedCount}}</view>
+      <view class="metric-label">制作中</view>
+    </view>
+    <view class="metric-card app-card">
+      <view class="metric-value">{{stats.completedCount}}</view>
+      <view class="metric-label">已完成</view>
+    </view>
+  </view>
+
+  <view class="top-section">
+    <view class="app-section-title">热销商品 Top 5</view>
+    <view wx:if="{{hasTopItems}}" class="top-list app-card">
+      <view
+        wx:for="{{stats.topItems}}"
+        wx:key="name"
+        class="top-row"
+      >
+        <view>
+          <view class="top-name">{{index + 1}}. {{item.name}}</view>
+          <view class="top-meta">销量 {{item.quantity}} 件</view>
+        </view>
+        <view class="app-price">¥{{item.amount}}</view>
+      </view>
+    </view>
+    <view wx:else class="empty-card app-card">
+      <view class="empty-title">暂无热销数据</view>
+      <view class="empty-desc">顾客完成模拟支付后会生成统计数据。</view>
+    </view>
   </view>
 </view>

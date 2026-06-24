@@ -1,0 +1,132 @@
+<view class="create-page app-safe-bottom">
+  <view class="page-head">
+    <view class="app-section-title">商品上架</view>
+    <view class="app-section-subtitle">新增商品会写入本地 Mock 菜品表</view>
+  </view>
+
+  <view class="form-card app-card">
+    <view class="field">
+      <view class="field-label">商品名称</view>
+      <input
+        class="field-input"
+        value="{{form.name}}"
+        placeholder="例如 椰香生椰拿铁"
+        data-field="name"
+        bindinput="handleInput"
+      />
+    </view>
+
+    <view class="field">
+      <view class="field-label">商品分类</view>
+      <picker mode="selector" range="{{categoryNames}}" value="{{categoryIndex}}" bindchange="handleCategoryChange">
+        <view class="picker-value">{{categoryNames[categoryIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <view class="field-label">商品价格</view>
+      <input
+        class="field-input"
+        type="digit"
+        value="{{form.price}}"
+        placeholder="例如 28"
+        data-field="price"
+        bindinput="handleInput"
+      />
+    </view>
+
+    <view class="field">
+      <view class="field-label">商品标签</view>
+      <input
+        class="field-input"
+        value="{{form.tag}}"
+        placeholder="例如 新品 / 招牌 / 推荐"
+        data-field="tag"
+        bindinput="handleInput"
+      />
+    </view>
+
+    <view class="field">
+      <view class="field-label">商品简介</view>
+      <textarea
+        class="field-textarea"
+        value="{{form.description}}"
+        placeholder="简要描述口味、卖点或适合场景"
+        data-field="description"
+        bindinput="handleInput"
+      ></textarea>
+    </view>
+
+    <view class="field">
+      <view class="field-label">商品图片</view>
+      <picker mode="selector" range="{{imageOptions}}" value="{{imageIndex}}" bindchange="handleImageChange">
+        <view class="image-picker">
+          <image class="preview-image" src="{{imageOptions[imageIndex]}}" mode="aspectFill"></image>
+          <view class="picker-text">选择项目内图片</view>
+        </view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <view class="field-label">温度选项</view>
+      <view class="option-list">
+        <view
+          wx:for="{{temperatureOptionItems}}"
+          wx:key="name"
+          class="option-chip {{item.selected ? 'active' : ''}}"
+          data-type="temperature"
+          data-name="{{item.name}}"
+          bindtap="handleOptionTap"
+        >
+          {{item.name}}
+        </view>
+        <view class="option-chip add" data-type="temperature" bindtap="handleAddOption">+ 自定义</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <view class="field-label">口味选项</view>
+      <view class="option-list">
+        <view
+          wx:for="{{tasteOptionItems}}"
+          wx:key="name"
+          class="option-chip {{item.selected ? 'active' : ''}}"
+          data-type="taste"
+          data-name="{{item.name}}"
+          bindtap="handleOptionTap"
+        >
+          {{item.name}}
+        </view>
+        <view class="option-chip add" data-type="taste" bindtap="handleAddOption">+ 自定义</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <view class="field-label">上架状态</view>
+      <view class="status-row">
+        <view
+          class="status-pill {{form.status === 'on_sale' ? 'active' : ''}}"
+          data-status="on_sale"
+          bindtap="handleStatusTap"
+        >
+          立即上架
+        </view>
+        <view
+          class="status-pill {{form.status === 'off_sale' ? 'active' : ''}}"
+          data-status="off_sale"
+          bindtap="handleStatusTap"
+        >
+          暂不上架
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button
+    class="app-btn-primary submit-button"
+    hover-class="button-hover"
+    bindtap="handleSubmit"
+  >
+    保存商品
+  </button>
+</view>

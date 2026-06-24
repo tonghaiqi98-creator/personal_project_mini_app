@@ -511,6 +511,9 @@
 5. 菜品状态。
 6. 上架 / 下架按钮。
 7. 修改价格入口。
+8. 修改菜品简介入口。
+9. 修改温度选项入口。
+10. 修改口味选项入口。
 
 交互要求：
 
@@ -519,6 +522,11 @@
 3. 下架菜品不在顾客端展示。
 4. 商家可修改价格。
 5. 价格修改后顾客端同步展示。
+6. 商家可修改菜品简介。
+7. 商家可通过标签多选维护温度选项。
+8. 商家可通过标签多选维护口味选项。
+9. 温度和口味选项修改后，顾客点击菜品详情时同步展示新的选项。
+10. 温度和口味选项支持从预设项中点选，也支持添加自定义选项。
 
 
 ---
@@ -546,6 +554,44 @@
 1. 数据根据订单变化更新。
 2. 第一版可基于本地数据或云数据库统计。
 3. 不做复杂图表和多维分析。
+
+
+### 6.2.5 商品上架页
+
+页面路径：
+
+`pages/merchant/dish-create/dish-create`
+
+页面目标：
+
+让商家在 Mock 阶段新增一个可展示在顾客端菜单页的商品。
+
+页面内容：
+
+1. 商品名称。
+2. 商品分类。
+3. 商品价格。
+4. 商品标签。
+5. 商品简介。
+6. 商品图片。
+7. 温度选项。
+8. 口味选项。
+9. 上架状态。
+10. 保存商品按钮。
+
+交互要求：
+
+1. 商家可选择商品分类。
+2. 商家可填写商品名称、价格、标签和简介。
+3. 商家可从项目内已有图片中选择商品图片。
+4. 商家可通过标签多选维护温度选项，例如热、冰、常温。
+5. 商家可通过标签多选维护口味选项，例如标准、少糖、无糖。
+6. 商家可选择立即上架或暂不上架。
+7. 保存后商品写入本地 Mock 菜品数据。
+8. 如果商品状态为已上架，顾客端菜单页应同步展示。
+9. 温度和口味选项支持添加自定义选项。
+
+
 
 ---
 
@@ -632,9 +678,32 @@
 | tag         | string | 标签      |
 | sales       | number | 销量      |
 | status      | string | 上架状态    |
+| temperatureOptions | array | 温度选项，如热、冰、常温 |
+| tasteOptions | array | 口味选项，如标准、少糖、无糖 |
 | sort        | number | 排序      |
 | createdAt   | number | 创建时间    |
 | updatedAt   | number | 更新时间    |
+
+---
+
+商品上架页创建商品时需要提交的字段：
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| storeId | string | 是 | 所属门店 ID，第一版默认 `store_001` |
+| categoryId | string | 是 | 分类 ID |
+| name | string | 是 | 商品名称 |
+| description | string | 是 | 商品简介 |
+| price | number | 是 | 商品价格 |
+| image | string | 是 | 商品图片，本阶段使用项目内本地图片 |
+| tag | string | 否 | 商品标签，默认可为新品 |
+| status | string | 是 | 上架状态：`on_sale` 或 `off_sale` |
+| temperatureOptions | array | 是 | 温度选项数组 |
+| tasteOptions | array | 是 | 口味选项数组 |
+| sales | number | 否 | 销量，新增商品默认 0 |
+| sort | number | 否 | 排序值 |
+| createdAt | number | 是 | 创建时间 |
+| updatedAt | number | 是 | 更新时间 |
 
 ---
 
@@ -844,6 +913,64 @@
 | pendingOrderCount   | number | 待处理订单数 |
 | completedOrderCount | number | 已完成订单数 |
 | topDishes           | array  | 热销商品   |
+
+---
+
+### 9.6 createDish
+
+用途：
+
+商家端新增上架商品。
+
+入参：
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| storeId | string | 是 | 门店 ID |
+| categoryId | string | 是 | 分类 ID |
+| name | string | 是 | 商品名称 |
+| description | string | 是 | 商品简介 |
+| price | number | 是 | 商品价格 |
+| image | string | 是 | 商品图片地址 |
+| tag | string | 否 | 商品标签 |
+| status | string | 是 | 上架状态：`on_sale` 或 `off_sale` |
+| temperatureOptions | array | 是 | 温度选项 |
+| tasteOptions | array | 是 | 口味选项 |
+
+出参：
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| success | boolean | 是否成功 |
+| dishId | string | 新增菜品 ID |
+| dish | object | 新增菜品信息 |
+
+---
+
+### 9.7 updateDish
+
+用途：
+
+商家端修改菜品价格、简介、状态、温度选项、口味选项等信息。
+
+入参：
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| dishId | string | 是 | 菜品 ID |
+| price | number | 否 | 商品价格 |
+| description | string | 否 | 商品简介 |
+| status | string | 否 | 上架状态 |
+| temperatureOptions | array | 否 | 温度选项 |
+| tasteOptions | array | 否 | 口味选项 |
+
+出参：
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| success | boolean | 是否成功 |
+| dishId | string | 菜品 ID |
+| dish | object | 更新后的菜品信息 |
 
 ---
 

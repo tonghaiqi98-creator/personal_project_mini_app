@@ -1,6 +1,72 @@
-<view class="placeholder-page">
-  <view class="app-card placeholder-card">
-    <view class="placeholder-title">订单管理</view>
-    <view class="placeholder-desc">页面结构已预留，后续再开发接单和完成订单。</view>
+<view class="orders-page app-safe-bottom">
+  <view class="page-head">
+    <view class="app-section-title">订单管理</view>
+    <view class="app-section-subtitle">处理顾客已支付订单</view>
+  </view>
+
+  <view class="tabs app-card">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="status"
+      class="tab-item {{activeStatus === item.status ? 'active' : ''}}"
+      data-status="{{item.status}}"
+      bindtap="handleTabTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <view wx:if="{{hasOrders}}" class="order-list">
+    <view
+      wx:for="{{filteredOrders}}"
+      wx:key="orderNo"
+      class="order-card app-card"
+    >
+      <view class="order-top">
+        <view>
+          <view class="table-no">{{item.tableNo || item.store.tableNo}}</view>
+          <view class="order-time">{{item.timeText}} · {{item.orderNo}}</view>
+        </view>
+        <view class="status-pill">{{item.statusText}}</view>
+      </view>
+
+      <view class="order-summary">{{item.summaryText}}</view>
+      <view wx:if="{{item.remark}}" class="remark">备注：{{item.remark}}</view>
+
+      <view class="items-list">
+        <view wx:for="{{item.items}}" wx:key="key" wx:for-item="dish" class="dish-row">
+          <text>{{dish.name}} {{dish.specText}}</text>
+          <text>x{{dish.quantity}}</text>
+        </view>
+      </view>
+
+      <view class="order-bottom">
+        <view>
+          <view class="count-text">共 {{item.cartCount}} 件</view>
+          <view class="app-price">¥{{item.cartTotal}}</view>
+        </view>
+        <button
+          wx:if="{{item.status === 'paid'}}"
+          class="action-button"
+          data-order-no="{{item.orderNo}}"
+          catchtap="handleAccept"
+        >
+          接单
+        </button>
+        <button
+          wx:elif="{{item.status === 'accepted'}}"
+          class="action-button"
+          data-order-no="{{item.orderNo}}"
+          catchtap="handleComplete"
+        >
+          完成订单
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-card app-card">
+    <view class="empty-title">暂无订单</view>
+    <view class="empty-desc">当前状态下没有需要处理的订单。</view>
   </view>
 </view>

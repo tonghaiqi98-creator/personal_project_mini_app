@@ -6,7 +6,7 @@ const categories = [
   { id: 'dessert', name: '甜品' }
 ]
 
-const dishes = [
+const rawDishes = [
   {
     id: 'hot-01',
     categoryId: 'hot',
@@ -232,6 +232,32 @@ const dishes = [
     status: 'on_sale'
   }
 ]
+
+function getDefaultTemperatureOptions(categoryId) {
+  if (categoryId === 'light-food' || categoryId === 'dessert') {
+    return ['常温']
+  }
+
+  return ['热', '冰', '常温']
+}
+
+function getDefaultTasteOptions(categoryId) {
+  if (categoryId === 'light-food') {
+    return ['标准', '少酱', '不要酱']
+  }
+
+  if (categoryId === 'dessert') {
+    return ['标准', '少甜']
+  }
+
+  return ['标准', '少糖', '无糖']
+}
+
+const dishes = rawDishes.map((dish) => ({
+  ...dish,
+  temperatureOptions: getDefaultTemperatureOptions(dish.categoryId),
+  tasteOptions: getDefaultTasteOptions(dish.categoryId)
+}))
 
 module.exports = {
   categories,

@@ -1,20 +1,134 @@
-.placeholder-page {
+.orders-page {
   min-height: 100vh;
   padding: 32rpx;
   box-sizing: border-box;
 }
 
-.placeholder-card {
-  padding: 36rpx 32rpx;
+.page-head {
+  margin-bottom: 22rpx;
 }
 
-.placeholder-title {
+.tabs {
+  display: flex;
+  padding: 8rpx;
+}
+
+.tab-item {
+  flex: 1;
+  height: 68rpx;
+  line-height: 68rpx;
+  border-radius: 999rpx;
+  color: #777777;
+  font-size: 26rpx;
+  font-weight: 700;
+  text-align: center;
+}
+
+.tab-item.active {
+  background: #FFF3EA;
+  color: #D77A32;
+}
+
+.order-list {
+  margin-top: 24rpx;
+}
+
+.order-card {
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.order-top,
+.order-bottom,
+.dish-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+}
+
+.table-no {
   color: #222222;
   font-size: 34rpx;
   font-weight: 700;
 }
 
-.placeholder-desc {
+.order-time,
+.count-text {
+  margin-top: 6rpx;
+  color: #777777;
+  font-size: 24rpx;
+}
+
+.status-pill {
+  flex-shrink: 0;
+  padding: 9rpx 16rpx;
+  border-radius: 999rpx;
+  background: #FFF3EA;
+  color: #D77A32;
+  font-size: 23rpx;
+  font-weight: 700;
+}
+
+.order-summary {
+  margin-top: 22rpx;
+  color: #222222;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.remark {
+  margin-top: 10rpx;
+  color: #D77A32;
+  font-size: 25rpx;
+}
+
+.items-list {
+  margin-top: 18rpx;
+  padding: 18rpx 0;
+  border-top: 1rpx solid #EEEEEE;
+  border-bottom: 1rpx solid #EEEEEE;
+}
+
+.dish-row {
+  color: #777777;
+  font-size: 24rpx;
+  margin-bottom: 10rpx;
+}
+
+.dish-row:last-child {
+  margin-bottom: 0;
+}
+
+.order-bottom {
+  margin-top: 20rpx;
+}
+
+.action-button {
+  width: 180rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  padding: 0;
+  border-radius: 999rpx;
+  background: #D77A32;
+  color: #FFFFFF;
+  font-size: 27rpx;
+  font-weight: 700;
+}
+
+.empty-card {
+  margin-top: 48rpx;
+  padding: 48rpx 36rpx;
+  text-align: center;
+}
+
+.empty-title {
+  color: #222222;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.empty-desc {
   margin-top: 12rpx;
   color: #777777;
   font-size: 26rpx;

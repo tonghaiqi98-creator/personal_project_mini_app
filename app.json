@@ -9,6 +9,7 @@
     "pages/merchant/home/home",
     "pages/merchant/orders/orders",
     "pages/merchant/dishes/dishes",
+    "pages/merchant/dish-create/dish-create",
     "pages/merchant/stats/stats"
   ],
   "window": {
